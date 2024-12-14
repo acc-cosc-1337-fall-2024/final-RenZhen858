@@ -1,17 +1,23 @@
-#ifndef DIE_H  // Header Guard
+#ifndef DIE_H
 #define DIE_H
-#include <random>  // To use random number generation
+
+#include <random>
 
 class Die {
 public:
-    // Constructor, initializes sides to 6
+    // Constructor to initialize the die
     Die();
-
-    // roll() function to return a random number between 1 and 6
-    int roll();
+    
+    // Rolls the die and stores the rolled value
+    void roll();
+    
+    // Returns the current value of the die
+    int get_value() const;
 
 private:
-    int sides;  // The number of sides on the die (defaulted to 6)
+    int value;   // Stores the current value of the die
+    std::mt19937 rng;  // Random number generator
+    std::uniform_int_distribution<int> dist;  // Distribution for die roll (1-6)
 };
 
 #endif // DIE_H

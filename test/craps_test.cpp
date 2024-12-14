@@ -10,18 +10,33 @@ TEST_CASE("Verify Test Configuration", "verification") {
 #include "die.h"
 
 int main() {
-    Die die;
+    // Create two Die objects
+    Die die1;
+    Die die2;
 
-    // Roll the die 10 times and assert each roll is between 1 and 6
+    // Test the rolling of the dice 10 times
     for (int i = 0; i < 10; ++i) {
-        int result = die.roll();
-        assert(result >= 1 && result <= 6);  // Assert the result is within the valid range
-        std::cout << "Roll " << (i + 1) << ": " << result << std::endl;
+        die1.roll();  // Roll the first die
+        die2.roll();  // Roll the second die
+        
+        // Get the values of each die and assert that they are between 1 and 6
+        int die1_value = die1.get_value();
+        int die2_value = die2.get_value();
+        
+        // Assert that each die's roll is between 1 and 6
+        assert(die1_value >= 1 && die1_value <= 6);
+        assert(die2_value >= 1 && die2_value <= 6);
+        
+        // Optionally, print the values of the dice for verification
+        std::cout << "Roll " << (i + 1) << ": Die 1 = " << die1_value 
+                  << ", Die 2 = " << die2_value << std::endl;
     }
 
-    std::cout << "All die rolls are within the valid range!" << std::endl;
+    std::cout << "All tests passed!" << std::endl;
+    
     return 0;
 }
+
 
 #include <iostream>
 #include <cassert>
