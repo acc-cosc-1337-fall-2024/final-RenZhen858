@@ -25,19 +25,30 @@ int main() {
 
 #include <iostream>
 #include <cassert>
+#include "die.h"
 #include "roll.h"
 
 int main() {
-    Roll roll;  // Create the Roll object to simulate two dice
+    // Create two Die objects
+    Die die1;
+    Die die2;
+    
+    // Create a Roll object with die1 and die2
+    Roll roll(die1, die2);
 
-    // Roll the dice 10 times and assert the sum is between 2 and 12
+    // Test the rolling 10 times
     for (int i = 0; i < 10; ++i) {
         roll.roll_dice();  // Roll the dice
-        int result = roll.roll_value();  // Get the sum of the dice rolls
-        assert(result >= 2 && result <= 12);  // Assert the sum is between 2 and 12
+        
+        // Get the rolled value and assert it's between 2 and 12
+        int result = roll.roll_value();
+        assert(result >= 2 && result <= 12);
+        
+        // Optionally, print the result for verification
         std::cout << "Roll " << (i + 1) << ": " << result << std::endl;
     }
 
-    std::cout << "All roll sums are within the valid range!" << std::endl;
+    std::cout << "All tests passed!" << std::endl;
+    
     return 0;
 }

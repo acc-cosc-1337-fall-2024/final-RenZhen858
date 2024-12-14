@@ -1,20 +1,16 @@
-#include "Roll.h"
+#include "roll.h"
 
-Roll::Roll() : die1_sides(6), die2_sides(6), rolled_value(0) {}
+// Constructor that initializes the references to the two die objects
+Roll::Roll(Die& die1, Die& die2) : die1(die1), die2(die2), rolled_value(0) {}
 
+// Rolls the dice and stores the rolled value (sum of both dice)
 void Roll::roll_dice() {
-    // Roll both dice and store the sum in rolled_value
-    rolled_value = roll_single_die(die1_sides) + roll_single_die(die2_sides);
+    die1.roll();    // Roll the first die
+    die2.roll();    // Roll the second die
+    rolled_value = die1.get_value() + die2.get_value();  // Sum the results of both dice
 }
 
-// Helper method to simulate rolling a single die
-int Roll::roll_single_die(int sides) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(1, sides);
-    return dis(gen);  // Return the randomly generated number for the die roll
-}
-
+// Returns the sum of the dice values
 int Roll::roll_value() const {
-    return rolled_value;  // Return the sum of both dice rolls
+    return rolled_value;
 }
