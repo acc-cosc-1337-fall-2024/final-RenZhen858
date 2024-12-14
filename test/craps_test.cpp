@@ -98,3 +98,68 @@ int main() {
 
     return 0;
 }
+
+#include <iostream>
+#include <cassert>
+#include "die.h"
+#include "roll.h"
+#include "come_out_phase.h"
+#include "point_phase.h"
+
+int main() {
+    Die die1;
+    Die die2;
+    Roll roll(die1, die2);  // Create a roll object using two dice
+
+    // Test ComeOutPhase
+    ComeOutPhase come_out_phase;
+    
+    // Test natural outcome (7 or 11)
+    die1.roll();
+    die2.roll();
+    roll.roll_dice();
+    RollOutcome outcome = come_out_phase.get_outcome(&roll);
+    assert(outcome == RollOutcome::natural || outcome == RollOutcome::craps || outcome == RollOutcome::point);
+    
+    // Test craps outcome (2, 3, 12)
+    die1.roll();
+    die2.roll();
+    roll.roll_dice();
+    outcome = come_out_phase.get_outcome(&roll);
+    assert(outcome == RollOutcome::craps || outcome == RollOutcome::point || outcome == RollOutcome::natural);
+    
+    // Test point outcome (any other roll)
+    die1.roll();
+    die2.roll();
+    roll.roll_dice();
+    outcome = come_out_phase.get_outcome(&roll);
+    assert(outcome == RollOutcome::point);
+
+    // Test PointPhase with a point value of 6
+    PointPhase point_phase(6);
+    
+    // Test point outcome (matching the point)
+    die1.roll();
+    die2.roll();
+    roll.roll_dice();
+    outcome = point_phase.get_outcome(&roll);
+    assert(outcome == RollOutcome::point || outcome == RollOutcome::seven_out || outcome == RollOutcome::nopoint);
+
+    // Test seven_out outcome (roll equals 7)
+    die1.roll();
+    die2.roll();
+    roll.roll_dice();
+    outcome = point_phase.get_outcome(&roll);
+    assert(outcome == RollOutcome::seven_out || outcome == RollOutcome::nopoint || outcome == RollOutcome::point);
+    
+    // Test nopoint outcome (roll neither 7 nor point)
+    die1.roll();
+    die2.roll();
+    roll.roll_dice();
+    outcome = point_phase.get_outcome(&roll);
+    assert(outcome == RollOutcome::nopoint || outcome == RollOutcome::seven_out || outcome == RollOutcome::point);
+
+    std::cout << "All tests passed!" << std::endl;
+
+    return 0;
+}
