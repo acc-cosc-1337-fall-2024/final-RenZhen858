@@ -1,5 +1,4 @@
 #include "die.h"
-
 Die::Die() : sides(6) {  // Constructor initializing sides to 6
     // No additional initialization needed
 }

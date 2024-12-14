@@ -1,6 +1,5 @@
 #ifndef DIE_H  // Header Guard
 #define DIE_H
-
 #include <random>  // To use random number generation
 
 class Die {

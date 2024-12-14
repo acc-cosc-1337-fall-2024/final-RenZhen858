@@ -7,7 +7,7 @@ TEST_CASE("Verify Test Configuration", "verification") {
 
 #include <iostream>
 #include <cassert>
-#include "Die.h"
+#include "die.h"
 
 int main() {
     Die die;
