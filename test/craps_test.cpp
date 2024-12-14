@@ -67,3 +67,34 @@ int main() {
     
     return 0;
 }
+
+#include <iostream>
+#include <cassert>
+#include "die.h"
+#include "shooter.h"
+
+int main() {
+    // Create two Die objects
+    Die die1;
+    Die die2;
+    
+    // Create a Shooter object
+    Shooter shooter;
+
+    // Loop 10 times to simulate 10 throws
+    for (int i = 0; i < 10; ++i) {
+        // Throw the dice and get the Roll object
+        Roll* roll = shooter.throw_dice(die1, die2);
+
+        // Get the rolled value and assert it is between 2 and 12
+        int result = roll->roll_value();
+        assert(result >= 2 && result <= 12);
+        
+        // Optionally, print the result for verification
+        std::cout << "Roll " << (i + 1) << ": " << result << std::endl;
+    }
+
+    std::cout << "All tests passed!" << std::endl;
+
+    return 0;
+}
